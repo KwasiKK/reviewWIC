@@ -1,0 +1,36 @@
+﻿@model restReview.Models.RestaurantClassificationsViewModel
+
+@{
+    ViewData["Title"] = "Edit Restaurant Classifications";
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+@if(!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger">
+        <b>Error. </b>@errorMessage
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+    </div>
+}
+<form action="Edit" method="post">
+    <div class="mb-3">
+        <label class="form-label">ID</label>
+        <input type="text" class="form-control" asp-for="ID" readonly />
+        <span asp-validation-for="ID" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Classification Name</label>
+        <input type="text" class="form-control" asp-for="ClassificationName"/>
+        <span asp-validation-for="ClassificationName" class="text-danger"></span>
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
