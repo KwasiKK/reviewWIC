@@ -1,0 +1,49 @@
+﻿@model EditUserViewModel
+
+@{
+    ViewData["Title"] = "Edit Restaurant Classifications";
+    var errorMessage = TempData["errorMessage"]?.ToString();
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger">
+        <b>Error. </b>@errorMessage
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+    </div>
+}
+@using (Html.BeginForm("OnPost", "User"))
+{
+    <div class="mb-3">
+        <label class="form-label">ID</label>
+        <input type="text" class="form-control" asp-for="User.Id" readonly />
+        <span asp-validation-for="User.Id" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">First Name</label>
+        <input type="text" class="form-control" asp-for="User.FirstName" readonly />
+        <span asp-validation-for="User.FirstName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        @for (int i = 0; i < @Model.Roles.Count(); i++)
+        {
+            <div class="form-check">
+                @Html.CheckBoxFor(c => @Model.Roles[i].Selected)
+                @Html.HiddenFor(h => @Model.Roles[i].Value)
+
+                @Html.LabelFor(l => @Model.Roles[i].Selected, @Model.Roles[i].Text, new {@class="form-check-label"})
+                @Html.HiddenFor(h => @Model.Roles[i].Text)
+            </div>
+        }
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

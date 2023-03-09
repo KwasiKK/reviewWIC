@@ -25,9 +25,9 @@ namespace reviewWIC.Migrations
         private void SeedRolesSQL(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@$"INSERT INTO [dbo].[AspNetRoles] ([Id],[Name],[NormalizedName],[ConcurrencyStamp])
-            VALUES ('{SysAdminRoleId}', 'System Administrator', 'ADMINISTRATOR', null);");
+            VALUES ('{SysAdminRoleId}', 'System Administrator', 'System Administrator', null);");
             migrationBuilder.Sql(@$"INSERT INTO [dbo].[AspNetRoles] ([Id],[Name],[NormalizedName],[ConcurrencyStamp])
-            VALUES ('{DataAdminRoleId}', 'Data Administrator', 'MANAGER', null);");
+            VALUES ('{DataAdminRoleId}', 'Data Administrator', 'Data Administrator', null);");
             migrationBuilder.Sql(@$"INSERT INTO [dbo].[AspNetRoles] ([Id],[Name],[NormalizedName],[ConcurrencyStamp])
             VALUES ('{UserRoleId}', 'User', 'USER', null);");
         }

@@ -1,0 +1,42 @@
+﻿@using reviewWIC.Areas.Identity.Data;
+@{
+    ViewData["Title"] = "Users Page";
+}
+@model ICollection<ApplicationUser>
+
+<div class="text-center">
+    <h2>Users</h2>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var row in Model)
+                {
+                    <tr>
+                        <td>@row.Id</td>
+                        <td>@row.FirstName</td>
+                        <td>@row.Surname</td>
+                        <td>@row.Email</td>
+                        <td><div class="btn-group"><a class="btn btn-primary" asp-action="Edit" asp-controller="User" asp-route-id="@row.Id">Edit</a></div></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3">
+                        <div>No Users</div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

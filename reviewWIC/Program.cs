@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using reviewWIC.Areas.Identity.Data;
+using reviewWIC.Models.Repositories;
+using reviewWIC.Repositories;
 using Constants = reviewWIC.Models.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +23,7 @@ AddAuthorizationPolicies();
 
 #endregion
 
+AddScoped();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -62,4 +65,11 @@ void AddAuthorizationPolicies()
         options.AddPolicy($"{Constants.Policies.RequireSysAdmin}", policy => policy.RequireRole($"{Constants.Roles.SysAdmin}"));
         options.AddPolicy($"{Constants.Policies.RequireDataAdmin}", policy => policy.RequireRole($"{Constants.Roles.DataAdmin}"));
     });
+}
+
+void AddScoped()
+{
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+    builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 }
